@@ -5,8 +5,10 @@
   let newInput =ref('')
 
   function input () {
-     todos.value.push(newInput.value)
-
+     todos.value.push({
+        text: newInput.value,
+        complete: false
+     })
      newInput.value = ''
   }
    
@@ -20,14 +22,16 @@ function deleteItem (index) {
   <h1>My todo application</h1>
   <ul>
   <li v-for="(todo, index) in todos">
-    <button @click = "deleteItem (index)">delete</button>
-    {{todo}}
+    <input type="checkbox" v-model="todo.complete">
+    <button @click = "deleteItem (index)">💣</button>
+    {{todo.text}}
     {{index}}
   </li>
     </ul>
 
     <input v-model="newInput" @keydown.enter="input">
     <button @click=input>add todo</button>
+
   </template>
 
 <style>
@@ -45,5 +49,9 @@ h1{
 }
 button{
   border-radius: 6px;
+  background-color: #FFE15D;
+}
+input{
+  border-radius: 10px;
 }
 </style>
