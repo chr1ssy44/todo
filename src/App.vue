@@ -1,10 +1,14 @@
 <script setup>
-  import {ref} from 'vue'
+  import {ref, watch} from 'vue'
 
-  let todos = ref([])
+  let todos = ref(JSON.parse(window.localStorage.getItem('todos')))
   let newInput =ref('')
 
-  function input () {
+  watch(todos, function(value) {
+    window.localStorage.setItem('todos', JSON.stringify(value))
+}, {deep:true})
+
+ function input () {
      todos.value.push({
         text: newInput.value,
         complete: false
@@ -22,10 +26,11 @@ function deleteItem (index) {
   <h1>My todo application</h1>
   <ul>
   <li v-for="(todo, index) in todos">
-    <input type="checkbox" v-model="todo.complete">
+    <label class="container"></label>
+    <input type="checkbox" id="checked" v-model="todo.complete">
+    <label for="check"></label>
     <button @click = "deleteItem (index)">💣</button>
     {{todo.text}}
-    {{index}}
   </li>
     </ul>
 
@@ -35,23 +40,36 @@ function deleteItem (index) {
   </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yomogi&display=swap');
 body{
-  font-family: 'Vibes', cursive;
+  font-family: 'Yomogi', cursive;
   margin: auto;
   max-width: 500px;
-  background-color: #FDEFEF;
+  background-color: #F1DEC9;
 }
 h1{
   color:#9F8772;
   text-decoration: underline;
   text-align: center;
 }
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
 button{
   border-radius: 6px;
   background-color: #FFE15D;
+  border-color: #B3C99C;
+  border-style: dotted;
+  font-family: 'Neucha';
 }
 input{
   border-radius: 10px;
 }
+input[type="checkbox"]{
+  height: 20px;
+  width: 20px;
+  border-radius: 8px;
+  cursor:pointer;
+}
+
+  
+
 </style>
