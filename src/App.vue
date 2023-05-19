@@ -22,6 +22,8 @@ function deleteItem (index) {
 function todoFilter (todo) {
   if (filter.value == 'active') {
     return todo.complete == false
+  } else if(filter.value == 'complete'){
+    return todo.complete == true
   } else {
     return true
   }
@@ -30,6 +32,11 @@ function todoFilter (todo) {
   function activeFilter (todo) {
     return todo.complete ==false
   }
+
+  function clearAll (todos) {
+    todos == []
+  }
+
 </script>
 
 <template>
@@ -63,6 +70,7 @@ function todoFilter (todo) {
 
     <input v-model="newInput" @keydown.enter="input">
     <button @click=input id="add">add todo</button>
+    <button @click = "clearAll" id="gone">delete all</button>
   </template>
 
 <style>
@@ -72,7 +80,7 @@ body{
   display: flex;
   justify-content: center;
   background-color: #F1DEC9;
-  margin: 300px;
+  margin: 250px;
 }
 h1{
   color:#9F8772;
@@ -149,5 +157,22 @@ input[type=checkbox]:checked + #lab:before {
 .completed{
   text-decoration: line-through;
   color: green;
+}
+
+#gone{
+  border-radius: 50%;
+  background-color: #FFE15D;
+  border-color: #B3C99C;
+  border-style: outset;
+  font-family: 'Neucha';
+  cursor: pointer;
+  padding: 25px;
+  box-shadow: 0 9px #999;
+}
+
+#gone:active{
+  background-color: #B3C99C;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 </style>
